@@ -10,7 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class RegActivity extends AppCompatActivity {
-    TextView txtLog, txtEmail, txtPas1, txtPas2;
+    TextView txtLog, txtEmail, txtPas1, txtPas2, txtState;
     String login, email, password1, password2;
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -20,21 +20,28 @@ public class RegActivity extends AppCompatActivity {
         txtEmail = findViewById(R.id.txtEmail);
         txtPas1=findViewById(R.id.txtPas1);
         txtPas2=findViewById(R.id.txtPas2);
+        txtState=findViewById(R.id.txtState);
     }
     public void onClickRegBtn(View view){
         login =  txtLog.getText().toString();
         email =  txtEmail.getText().toString();
         password1=txtPas1.getText().toString();
         password2=txtPas2.getText().toString();
-        if(login.length()==0 || email.length()==0 || password1.length()==0 || password2.length()==0) {
-        } else {
-            if(password1.length()<7){
-            } else {
-                if(!password1.equals(password2)){
+        if(login.length()!=0 && email.length()!=0 && password1.length()!=0 && password2.length()!=0)
+        {
+            if(password1.length()>7)
+            {
+                if(password1.equals(password2)){
+                    //добавление аккаунта в бд
+                    this.finish();
                 } else {
-                    //здесь код для всех проверок
+                    txtState.setText("Пароли не совпадают");
                 }
+             } else {
+                txtState.setText("Длина пароля должна превышать 7 символов");
             }
+        } else {
+            txtState.setText("Пожалуйста, заполните все поля");
         }
 
     }
